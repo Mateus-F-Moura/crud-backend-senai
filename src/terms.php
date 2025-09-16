@@ -21,7 +21,7 @@
         <p>
             Para dúvidas, entre em contato com o suporte.
         </p>
-        <a href="javascript:history.back()" class="btn btn-primary mt-3">Voltar</a>
+        <a href="form.php" class="btn btn-primary mt-3">Voltar</a>
     </main>
 </body>
 </html>

@@ -17,6 +17,14 @@
             <h1 class="title d-inline align-middle">Cadastro</h1>
             <i class="bi bi-stars h1 align-middle ms-2"></i>
         </div>
+
+        <?php
+        if (isset($_GET['status']) && $_GET['status'] == 'error') {
+            $message = $_GET['message'] ?? 'Ocorreu um erro ao processar seu cadastro.';
+            echo '<div class="alert alert-danger mt-3" role="alert">' . htmlspecialchars($message) . '</div>';
+        }
+        ?>
+
         <form action="include.php" method="post">
             <div class="form-floating mb-3 mt-4">
                 <input name="email" class="form-control" id="floatingInput" placeholder="nome@exemplo.com">
@@ -80,7 +88,7 @@
                 </label>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-secondary me-md-2" type="button" onclick="history.back()">Voltar</button>
+                <button class="btn btn-secondary me-md-2" type="button"><a href="index.php">Voltar</a></button>
                 <button class="btn btn-primary" type="submit">Enviar</button>
             </div>
         </form>

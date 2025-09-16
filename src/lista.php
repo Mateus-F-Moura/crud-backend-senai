@@ -37,32 +37,47 @@ include './conn.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>001</td>
-                        <td>exemplo@email.com</td>
-                        <td>Nome Exemplo</td>
-                        <td>01/01/2000</td>
-                        <td>12345-678</td>
-                        <td>Rua Exemplo</td>
-                        <td>Cidade Exemplo</td>
-                        <td>Bairro Exemplo</td>
-                        <td>UF</td>
-                        <td>123</td>
-                        <td>Apto 101</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" title="Editar">
-                                <i class="bi bi-pencil-fill"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm" title="Excluir">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <?php
+
+                    $sql = 'SELECT id, email, nome, dataNascimento, cep, endereco, numero, complemento, bairro, cidade, estado FROM cliente';
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        // Itera sobre cada linha de resultado
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
+                            echo "<td>" . htmlspecialchars(date('d/m/Y', strtotime($row['dataNascimento']))) . "</td>"; // Formata a data
+                            echo "<td>" . htmlspecialchars($row['cep']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['endereco']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['numero']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['complemento']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['bairro']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['cidade']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['estado']) . "</td>";
+                            echo "<td>";
+                            echo "<button class='btn btn-warning btn-sm me-1' title='Editar'>"; // Adicionado margem
+                            echo "<i class='bi bi-pencil-fill'></i>";
+                            echo "</button>";
+                            echo "<button class='btn btn-danger btn-sm' title='Excluir'>";
+                            echo "<i class='bi bi-trash-fill'></i>";
+                            echo "</button>";
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='12' class='text-center'>Nenhum cadastro encontrado.</td></tr>";
+                    }
+                    // Fechar a conexão (opcional, mas boa prática)
+                    $conn->close();
+                    ?>
                 </tbody>
             </table>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-secondary" onclick="history.back()">Voltar</button>
+            <button class="btn btn-secondary"><a href="index.php">Voltar</a></button>
         </div>
     </main>
 </body>
